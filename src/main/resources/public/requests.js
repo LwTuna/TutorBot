@@ -3,14 +3,12 @@ alert("timeout");
 }
 
 function sendRequest(request,callback) {
-    console.log(request);
     let httpRequest = new XMLHttpRequest();
     httpRequest.open('POST','request?'+encodeURI(JSON.stringify(request)));
 
     httpRequest.onreadystatechange = function () {
         if(this.readyState == 4 && this.status == 200){
             let response = JSON.parse(this.responseText);
-            console.log(response);
             callback(response);
         }
     };

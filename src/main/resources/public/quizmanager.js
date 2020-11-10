@@ -17,6 +17,11 @@ function loadQuestion(question,index) {
         case "multipleChoice":
             $("#q"+index).load("questionTypes/multipleChoiceQuestion.html",function () {
                 document.getElementById("q"+index).getElementsByClassName("question")[0].innerHTML = question.question;
+
+                for(let i=0;i<4;i++){
+
+                    document.getElementById("q"+index).getElementsByClassName("form-check-label")[i].innerHTML += question.answers[i];
+                }
             });
             break;
     }
