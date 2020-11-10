@@ -45,6 +45,8 @@ public class App {
             object.put("message","Hello World back !");
             return object;
         });
+
+        handlers.put("getQuestions",new QuestionManager());
     }
 
 

@@ -1,15 +1,16 @@
 function timeoutRequest() {
-
+alert("timeout");
 }
 
 function sendRequest(request,callback) {
-
-    var httpRequest = new XMLHttpRequest();
+    console.log(request);
+    let httpRequest = new XMLHttpRequest();
     httpRequest.open('POST','request?'+encodeURI(JSON.stringify(request)));
 
     httpRequest.onreadystatechange = function () {
         if(this.readyState == 4 && this.status == 200){
-            var response = JSON.parse(this.responseText);
+            let response = JSON.parse(this.responseText);
+            console.log(response);
             callback(response);
         }
     };
@@ -33,5 +34,5 @@ function testCallback(response) {
 }
 
 $(document).ready(function () {
-    $(".content").load("QuizContent.html");
+    $(".content").load("homeContent.html");
 })
