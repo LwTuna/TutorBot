@@ -35,7 +35,7 @@ function testCallback(response) {
 
 
 
-function onLoginResponse(response) {
+function onIsLoginResponse(response) {
     if(!response.loggedIn){
         $(".content").load("login.html");
     }else{
@@ -46,7 +46,7 @@ function onLoginResponse(response) {
 function onReady() {
     let request = {};
     request.key = "isLoggedIn";
-    sendRequest(request,onLoginResponse);
+    sendRequest(request,onIsLoginResponse);
 }
 
 $(document).ready(function () {
@@ -55,6 +55,23 @@ $(document).ready(function () {
     onReady();
 });
 
+function login() {
+    let request = {};
+    request.key = "login";
+    request.user = "testUser";
+    request.password = "12345678";
+    sendRequest(request,onLoginResponse);
+}
+
+function onLoginResponse(response) {
+    if(response.success){
+        $(".content").load("homeContent.html");
+    }else{
+        alert("Login failed."+response.status);
+    }
+
+
+}
 
 /*****************Cookie Management ******************/
 /*

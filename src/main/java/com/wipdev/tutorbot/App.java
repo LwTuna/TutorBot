@@ -53,6 +53,23 @@ public class App {
             object.put("loggedIn",isLoggedIn);
             return object;
         });
+
+        handlers.put("login",((request, session) -> {
+
+
+            String username = request.getString("user");
+            String password = request.getString("password");
+
+            boolean b = sessionManager.getSessionData(session).logIn(username,password);
+
+            JSONObject response = new JSONObject();
+            response.put("success",b);
+
+            response.put("status",b ? "success" : "Log in Failed. Wrong User/Password");
+
+
+            return response;
+        }));
     }
 
 
