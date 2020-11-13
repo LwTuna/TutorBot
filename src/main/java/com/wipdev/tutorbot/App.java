@@ -4,11 +4,9 @@
 package com.wipdev.tutorbot;
 
 import io.javalin.Javalin;
-import io.javalin.http.Context;
-import io.javalin.http.Handler;
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
+import javax.servlet.http.HttpSession;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
@@ -21,6 +19,7 @@ public class App {
 
     private Javalin javalin;
 
+    private SessionManager sessionManager = new SessionManager();
 
     public App() {
         javalin = Javalin.create(config -> {
@@ -30,7 +29,7 @@ public class App {
         javalin.start(8080);
 
         javalin.post("request", ctx -> {
-            ctx.result(handleRequest(URLDecoder.decode(ctx.queryString(), StandardCharsets.UTF_8.toString())));
+            ctx.result(handleRequest(URLDecoder.decode(ctx.queryString(), StandardCharsets.UTF_8.toString()),ctx.req.getSession()));
         });
 
         initializeHandlers();
@@ -39,7 +38,7 @@ public class App {
 
 
     private void initializeHandlers() {
-        handlers.put("test",request -> {
+        handlers.put("test", (request, session) -> {
             JSONObject object = new JSONObject();
             object.put("key","testResponse");
             object.put("message","Hello World back !");
@@ -47,10 +46,17 @@ public class App {
         });
 
         handlers.put("getQuestions",new QuestionManager());
+
+        handlers.put("isLoggedIn", (request, session) -> {
+            JSONObject object = new JSONObject();
+            boolean isLoggedIn = sessionManager.getSessionData(session).isLoggedIn();
+            object.put("loggedIn",isLoggedIn);
+            return object;
+        });
     }
 
 
-    private String handleRequest(String decode) {
+    private String handleRequest(String decode, HttpSession session) {
         JSONObject request = new JSONObject(decode);
         JSONObject errorResponse = new JSONObject();
         errorResponse.put("key","error");
@@ -58,7 +64,7 @@ public class App {
             String key = request.getString("key");
             if(key != null){
                 if(handlers.containsKey(key)){
-                    return handlers.get(key).handleRequest(request).toString();
+                    return handlers.get(key).handleRequest(request,session).toString();
                 }else {
                     errorResponse.put("message","Request Handlers does not contain key="+key);
                 }

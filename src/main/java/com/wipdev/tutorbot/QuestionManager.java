@@ -3,6 +3,8 @@ package com.wipdev.tutorbot;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javax.servlet.http.HttpSession;
+
 public class QuestionManager implements RequestHandler {
 
     private JSONObject getQuestions(){
@@ -19,7 +21,7 @@ public class QuestionManager implements RequestHandler {
         questionArray.put(q1);
         questionArray.put(q2);
         questionArray.put(q3);
-
+        questionArray.put(createQuestion(QuestionType.MULTIPLE_CHOICE,"Was ist a?","a","b","c","d"));
         object.put("questionsArray", questionArray);
 
         return object;
@@ -34,7 +36,7 @@ public class QuestionManager implements RequestHandler {
     }
 
     @Override
-    public JSONObject handleRequest(JSONObject request) {
+    public JSONObject handleRequest(JSONObject request, HttpSession session) {
         return getQuestions();
     }
 }
