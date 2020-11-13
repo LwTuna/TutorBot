@@ -39,6 +39,11 @@ Als Features sind Geplant :
 - Umfragen
 - Profil-Seite (Vlt mit Bild)
 
+## Hinweis
+
+Ich habe bisher sehr viel mit der load function gearbeitet, was ich später, sobald ich einen strukturierteren aufbau der Website habe noch ersetzten werde.
+Momentant habe ich bisher nur 1 einzelne Seite, bei der der Inhalt reingeladen wird. TODO ersetze ich später
+
 ## Tutor-Bot
 
 Der Tutor-Bot soll eine Art "Virtueller Tutor" sein.
