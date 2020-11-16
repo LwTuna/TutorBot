@@ -11,7 +11,6 @@ public class SessionData {
     private String userObjectID;
 
 
-
     public SessionData(String id) {
         this.id = id;
     }
@@ -20,17 +19,15 @@ public class SessionData {
         return loggedIn;
     }
 
-    public boolean logIn(String username, String password, DatabaseHandler databaseHandler){
-        JSONObject res = databaseHandler.logIn(username,password);
+    public boolean logIn(String username, String password, DatabaseHandler databaseHandler) {
+        JSONObject res = databaseHandler.logIn(username, password);
 
-        if(res == null){
+        if (res == null) {
             return false;
-        }else {
+        } else {
             loggedIn = true;
             userObjectID = res.get(databaseHandler.idKey).toString();
             return loggedIn;
-
         }
-
     }
 }

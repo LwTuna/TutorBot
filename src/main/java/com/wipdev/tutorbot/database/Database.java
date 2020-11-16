@@ -2,7 +2,7 @@ package com.wipdev.tutorbot.database;
 
 public enum Database {
 
-    User_Data("User_Data","Userdata");
+    User_Data("User_Data", "Userdata");
 
     String databaseName;
     String collectionName;

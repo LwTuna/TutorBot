@@ -16,7 +16,7 @@ function sendRequest(request,callback) {
     httpRequest.timeout = 5000;
     httpRequest.ontimeout = function () {
         timeoutRequest();
-    }
+    };
     httpRequest.send();
 }
 

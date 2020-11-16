@@ -18,7 +18,7 @@ import java.util.Map;
 public class App {
 
 
-    private Map<String,RequestHandler> handlers = new HashMap<>();
+    private Map<String, RequestHandler> handlers = new HashMap<>();
 
     private Javalin javalin;
 
@@ -35,45 +35,43 @@ public class App {
         javalin.start(8080);
 
         javalin.post("request", ctx -> {
-            ctx.result(handleRequest(URLDecoder.decode(ctx.queryString(), StandardCharsets.UTF_8.toString()),ctx.req.getSession()));
+            ctx.result(handleRequest(URLDecoder.decode(ctx.queryString(), StandardCharsets.UTF_8.toString()), ctx.req.getSession()));
         });
 
         initializeHandlers();
-
         databaseHandler.connect();
     }
-
 
 
     private void initializeHandlers() {
         handlers.put("test", (request, session) -> {
             JSONObject object = new JSONObject();
-            object.put("key","testResponse");
-            object.put("message","Hello World back !");
+            object.put("key", "testResponse");
+            object.put("message", "Hello World back !");
             return object;
         });
 
-        handlers.put("getQuestions",new QuestionManager());
+        handlers.put("getQuestions", new QuestionManager());
 
         handlers.put("isLoggedIn", (request, session) -> {
             JSONObject object = new JSONObject();
             boolean isLoggedIn = sessionManager.getSessionData(session).isLoggedIn();
-            object.put("loggedIn",isLoggedIn);
+            object.put("loggedIn", isLoggedIn);
             return object;
         });
 
-        handlers.put("login",((request, session) -> {
+        handlers.put("login", ((request, session) -> {
 
 
             String username = request.getString("user");
             String password = request.getString("password");
 
-            boolean b = sessionManager.getSessionData(session).logIn(username,password,databaseHandler);
+            boolean b = sessionManager.getSessionData(session).logIn(username, password, databaseHandler);
 
             JSONObject response = new JSONObject();
-            response.put("success",b);
+            response.put("success", b);
 
-            response.put("status",b ? "success" : "Log in Failed. Wrong User/Password");
+            response.put("status", b ? "success" : "Log in Failed. Wrong User/Password");
 
 
             return response;
@@ -84,20 +82,20 @@ public class App {
     private String handleRequest(String decode, HttpSession session) {
         JSONObject request = new JSONObject(decode);
         JSONObject errorResponse = new JSONObject();
-        errorResponse.put("key","error");
-        if(request !=null){
+        errorResponse.put("key", "error");
+        if (request != null) {
             String key = request.getString("key");
-            if(key != null){
-                if(handlers.containsKey(key)){
-                    return handlers.get(key).handleRequest(request,session).toString();
-                }else {
-                    errorResponse.put("message","Request Handlers does not contain key="+key);
+            if (key != null) {
+                if (handlers.containsKey(key)) {
+                    return handlers.get(key).handleRequest(request, session).toString();
+                } else {
+                    errorResponse.put("message", "Request Handlers does not contain key=" + key);
                 }
-            }else{
-                errorResponse.put("message","Key can not be null");
+            } else {
+                errorResponse.put("message", "Key can not be null");
             }
-        }else {
-            errorResponse.put("message","Request is not an valid JSON Object. ->"+decode);
+        } else {
+            errorResponse.put("message", "Request is not an valid JSON Object. ->" + decode);
         }
 
         return errorResponse.toString();

@@ -6,6 +6,6 @@ import javax.servlet.http.HttpSession;
 
 public interface RequestHandler {
 
-    public JSONObject handleRequest(JSONObject request, HttpSession session);
+    JSONObject handleRequest(JSONObject request, HttpSession session);
 
 }

@@ -50,5 +50,5 @@ $(document).ready(function () {
     let request = {};
     request.key = "getQuestions";
     sendRequest(request,loadQuestions);
-})
+});
 

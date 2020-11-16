@@ -2,7 +2,7 @@ package com.wipdev.tutorbot.questions;
 
 public enum QuestionType {
 
-    INPUT("input"),TEXT_AREA("textArea"),MULTIPLE_CHOICE("multipleChoice");
+    INPUT("input"), TEXT_AREA("textArea"), MULTIPLE_CHOICE("multipleChoice");
 
     String key;
 
