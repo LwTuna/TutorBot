@@ -55,23 +55,9 @@ $(document).ready(function () {
     onReady();
 });
 
-function login() {
-    let request = {};
-    request.key = "login";
-    request.user = "testUser";
-    request.password = "12345678";
-    sendRequest(request,onLoginResponse);
-}
-
-function onLoginResponse(response) {
-    if(response.success){
-        $(".content").load("homeContent.html");
-    }else{
-        alert("Login failed."+response.status);
-    }
 
 
-}
+
 
 /*****************Cookie Management ******************/
 /*

@@ -68,7 +68,7 @@ public class App {
             String username = request.getString("user");
             String password = request.getString("password");
 
-            boolean b = sessionManager.getSessionData(session).logIn(username,password);
+            boolean b = sessionManager.getSessionData(session).logIn(username,password,databaseHandler);
 
             JSONObject response = new JSONObject();
             response.put("success",b);
