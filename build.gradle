@@ -36,6 +36,10 @@ dependencies {
     compile group: 'org.json', name: 'json', version: '20200518'
 
 
+    // https://mvnrepository.com/artifact/org.mongodb/mongodb-driver
+    compile group: 'org.mongodb', name: 'mongodb-driver', version: '3.6.3'
+
+
 }
 
 application {

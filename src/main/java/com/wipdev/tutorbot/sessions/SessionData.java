@@ -1,4 +1,4 @@
-package com.wipdev.tutorbot;
+package com.wipdev.tutorbot.sessions;
 
 public class SessionData {
 

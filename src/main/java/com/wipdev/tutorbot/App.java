@@ -3,6 +3,9 @@
  */
 package com.wipdev.tutorbot;
 
+import com.wipdev.tutorbot.database.DatabaseHandler;
+import com.wipdev.tutorbot.questions.QuestionManager;
+import com.wipdev.tutorbot.sessions.SessionManager;
 import io.javalin.Javalin;
 import org.json.JSONObject;
 
@@ -21,6 +24,9 @@ public class App {
 
     private SessionManager sessionManager = new SessionManager();
 
+    private DatabaseHandler databaseHandler = new DatabaseHandler();
+
+
     public App() {
         javalin = Javalin.create(config -> {
             config.addStaticFiles("/public");
@@ -33,6 +39,8 @@ public class App {
         });
 
         initializeHandlers();
+
+        databaseHandler.connect();
     }
 
 

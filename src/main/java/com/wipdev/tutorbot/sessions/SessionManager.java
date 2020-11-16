@@ -1,10 +1,8 @@
-package com.wipdev.tutorbot;
+package com.wipdev.tutorbot.sessions;
 
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class SessionManager {
