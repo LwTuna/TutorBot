@@ -8,7 +8,8 @@ public class SessionData {
     private String id;
 
     private boolean loggedIn = false;
-    private String userID;
+    private String userObjectID;
+
 
 
     public SessionData(String id) {
@@ -26,7 +27,7 @@ public class SessionData {
             return false;
         }else {
             loggedIn = true;
-            System.out.println(res.get(databaseHandler.idKey));
+            userObjectID = res.get(databaseHandler.idKey).toString();
             return loggedIn;
 
         }

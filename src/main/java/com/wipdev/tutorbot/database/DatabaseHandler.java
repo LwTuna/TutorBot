@@ -6,6 +6,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCursor;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 import org.json.JSONObject;
 
 public class DatabaseHandler {
@@ -48,6 +49,13 @@ public class DatabaseHandler {
         return null;
     }
 
+    public static ObjectId createObjectID(String oid){
+        return new ObjectId(oid);
+    }
+
+    public static String getFromObjectID(ObjectId oid){
+        return oid.toHexString();
+    }
 
     public JSONObject logIn(String username, String password){
         var object = find(Database.User_Data, userKey,username);
