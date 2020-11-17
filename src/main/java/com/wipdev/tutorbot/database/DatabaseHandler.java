@@ -19,7 +19,7 @@ public class DatabaseHandler {
 
     private MongoClient mongoClient;
 
-    private final String userKey = "user", passwordKey = "password";
+    public final String userKey = "user", passwordKey = "password";
     public final String idKey = "_id";
 
     public void connect() {
@@ -70,6 +70,9 @@ public class DatabaseHandler {
         }
     }
 
+    public boolean contains(Database database,String key,String value){
+        return find(database,key,value) !=null;
+    }
 
     public String createNewUser(String username,String password){
         JSONObject object = new JSONObject();

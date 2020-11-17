@@ -21,3 +21,15 @@ function hashPwd(pwd) {
     hashObj.update(pwd);
     return hashObj.getHash("HEX");
 }
+
+function register() {
+    let request = {};
+    request.key = "register";
+    request.user = document.getElementById("usr").value;
+    request.password = hashPwd(document.getElementById("pwd").value);
+    sendRequest(request,onRegisterResponse);
+}
+
+function onRegisterResponse(response) {
+    alert(response.message);
+}

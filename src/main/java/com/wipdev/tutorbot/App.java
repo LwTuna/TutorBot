@@ -81,6 +81,27 @@ public class App {
 
             return response;
         }));
+
+
+        handlers.put("register", ((request, session) -> {
+
+
+            String username = request.getString("user");
+            String password = request.getString("password");
+
+            JSONObject response = new JSONObject();
+
+            //TODO check if user already exists
+            if(databaseHandler.contains(Database.User_Data,databaseHandler.userKey,username)){
+                response.put("success",false);
+                response.put("message","Es gibt schon einen Nutzer mit dem Benutzernamen");
+            }else{
+                databaseHandler.createNewUser(username,password);
+                response.put("success",true);
+                response.put("message","Erfolgreich Registriert");
+            }
+            return response;
+        }));
     }
 
 
