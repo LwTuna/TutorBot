@@ -45,13 +45,7 @@ public class DatabaseHandler {
         return null;
     }
 
-    public static ObjectId createObjectID(String oid) {
-        return new ObjectId(oid);
-    }
 
-    public static String getFromObjectID(ObjectId oid) {
-        return oid.toHexString();
-    }
 
     public JSONObject logIn(String username, String password) {
         var object = find(Database.User_Data, userKey, username);
@@ -63,5 +57,14 @@ public class DatabaseHandler {
         }
     }
 
+
+    public String createNewUser(String username,String password){
+        JSONObject object = new JSONObject();
+        object.put(userKey,username);
+        object.put(passwordKey,password);
+        insertOne(Database.User_Data, object);
+        JSONObject entry = find(Database.User_Data,userKey,username);
+        return entry.get(idKey).toString();
+    }
 
 }

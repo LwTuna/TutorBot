@@ -40,6 +40,8 @@ public class App {
 
         initializeHandlers();
         databaseHandler.connect();
+
+        System.out.println(databaseHandler.createNewUser("test2","123"));
     }
 
 
