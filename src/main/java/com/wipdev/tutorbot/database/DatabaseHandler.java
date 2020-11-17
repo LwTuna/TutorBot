@@ -9,6 +9,9 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DatabaseHandler {
 
 
@@ -27,7 +30,7 @@ public class DatabaseHandler {
     }
 
     private void insertOne(Database database, JSONObject object) {
-        mongoClient.getDatabase(database.databaseName).getCollection(database.collectionName).insertOne(new Document(object.toMap()));
+        mongoClient.getDatabase(database.databaseName).getCollection(database.collectionName).insertOne(Document.parse(object.toString()));
     }
 
     private JSONObject find(Database database, String key, Object value) {
@@ -45,7 +48,17 @@ public class DatabaseHandler {
         return null;
     }
 
-
+    private List<JSONObject> getAll(Database database){
+        List<JSONObject> objects = new ArrayList<>();
+        MongoCursor<Document> it = mongoClient.getDatabase(database.databaseName).getCollection(database.collectionName).find().iterator();
+        while (it.hasNext()) {
+            var val = it.next();
+            var ret = new JSONObject(val.toJson());
+            objects.add(ret);
+        }
+        it.close();
+        return objects;
+    }
 
     public JSONObject logIn(String username, String password) {
         var object = find(Database.User_Data, userKey, username);
@@ -65,6 +78,13 @@ public class DatabaseHandler {
         insertOne(Database.User_Data, object);
         JSONObject entry = find(Database.User_Data,userKey,username);
         return entry.get(idKey).toString();
+    }
+
+    public void createQuestion(JSONObject question){
+        insertOne(Database.Questions,question);
+    }
+    public List<JSONObject> getAllQuestions(){
+        return getAll(Database.Questions);
     }
 
 }

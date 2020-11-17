@@ -3,8 +3,10 @@
  */
 package com.wipdev.tutorbot;
 
+import com.wipdev.tutorbot.database.Database;
 import com.wipdev.tutorbot.database.DatabaseHandler;
 import com.wipdev.tutorbot.questions.QuestionManager;
+import com.wipdev.tutorbot.questions.QuestionType;
 import com.wipdev.tutorbot.sessions.SessionManager;
 import io.javalin.Javalin;
 import org.json.JSONObject;
@@ -26,6 +28,7 @@ public class App {
 
     private DatabaseHandler databaseHandler = new DatabaseHandler();
 
+    private QuestionManager questionManager ;
 
     public App() {
         javalin = Javalin.create(config -> {
@@ -37,11 +40,11 @@ public class App {
         javalin.post("request", ctx -> {
             ctx.result(handleRequest(URLDecoder.decode(ctx.queryString(), StandardCharsets.UTF_8.toString()), ctx.req.getSession()));
         });
+        databaseHandler.connect();
+        questionManager = new QuestionManager(databaseHandler,sessionManager);
 
         initializeHandlers();
-        databaseHandler.connect();
 
-        System.out.println(databaseHandler.createNewUser("test2","123"));
     }
 
 
@@ -53,7 +56,7 @@ public class App {
             return object;
         });
 
-        handlers.put("getQuestions", new QuestionManager());
+        handlers.put("getQuestions", questionManager::handleRequest);
 
         handlers.put("isLoggedIn", (request, session) -> {
             JSONObject object = new JSONObject();
