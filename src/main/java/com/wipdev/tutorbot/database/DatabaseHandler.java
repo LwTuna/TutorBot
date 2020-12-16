@@ -14,7 +14,7 @@ import java.util.List;
 public class DatabaseHandler {
 
 
-    Nitrite db;
+    private Nitrite db;
 
     public final String userKey = "user", passwordKey = "password";
     public final String idKey = "_id";
@@ -104,4 +104,5 @@ public class DatabaseHandler {
         packet.put("userId",userObjectID);
         insertOne(Database.Answers,packet);
     }
+
 }
