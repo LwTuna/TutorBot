@@ -45,4 +45,5 @@ dependencies {
 application {
     // Define the main class for the application.
     mainClassName = 'com.wipdev.tutorbot.App'
+    applicationDefaultJvmArgs = ['-Djdk.tls.client.protocols=TLSv1.2']
 }

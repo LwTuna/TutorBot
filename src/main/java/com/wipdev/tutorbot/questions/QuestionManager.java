@@ -49,4 +49,18 @@ public class QuestionManager implements RequestHandler {
     public JSONObject handleRequest(JSONObject request, HttpSession session) {
         return getQuestions(sessionManager.getSessionData(session));
     }
+
+    public JSONObject handleAnswers(JSONObject request, HttpSession session) {
+        JSONObject response = new JSONObject();
+        response.put("success",true);
+        JSONArray array = request.getJSONArray("answers");
+        for(int i=0;i<array.length();i++){
+            int id = array.getJSONObject(i).getInt("index");
+            String answer = array.getJSONObject(i).getString("answer");
+            databaseHandler.putAnswer(id,answer,sessionManager.getSessionData(session).getUserObjectID());
+        }
+
+
+        return response;
+    }
 }

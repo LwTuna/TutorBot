@@ -7,6 +7,7 @@ import com.wipdev.tutorbot.database.Database;
 import com.wipdev.tutorbot.database.DatabaseHandler;
 import com.wipdev.tutorbot.questions.QuestionManager;
 import com.wipdev.tutorbot.questions.QuestionType;
+import com.wipdev.tutorbot.reviews.ReviewHandler;
 import com.wipdev.tutorbot.sessions.SessionManager;
 import io.javalin.Javalin;
 import org.json.JSONObject;
@@ -30,6 +31,8 @@ public class App {
 
     private QuestionManager questionManager ;
 
+    private ReviewHandler reviewHandler = new ReviewHandler();
+
     public App() {
         javalin = Javalin.create(config -> {
             config.addStaticFiles("/public");
@@ -45,7 +48,7 @@ public class App {
 
         initializeHandlers();
 
-    }
+     }
 
 
     private void initializeHandlers() {
@@ -82,6 +85,10 @@ public class App {
             return response;
         }));
 
+        handlers.put("getAnswersToReview",reviewHandler);
+
+        handlers.put("sumbitAnswers", questionManager::handleAnswers);
+
 
         handlers.put("register", ((request, session) -> {
 
@@ -91,7 +98,6 @@ public class App {
 
             JSONObject response = new JSONObject();
 
-            //TODO check if user already exists
             if(databaseHandler.contains(Database.User_Data,databaseHandler.userKey,username)){
                 response.put("success",false);
                 response.put("message","Es gibt schon einen Nutzer mit dem Benutzernamen");
@@ -125,6 +131,7 @@ public class App {
         }
 
         return errorResponse.toString();
+
     }
 
 

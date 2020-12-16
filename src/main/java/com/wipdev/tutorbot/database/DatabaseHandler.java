@@ -1,9 +1,6 @@
 package com.wipdev.tutorbot.database;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.Block;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
+import com.mongodb.*;
 import com.mongodb.client.MongoCursor;
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -24,9 +21,8 @@ public class DatabaseHandler {
 
     public void connect() {
         uri = new MongoClientURI("mongodb+srv://Admin:2212@cluster0.jquix.mongodb.net/user_data?retryWrites=true&w=majority");
+
         mongoClient = new MongoClient(uri);
-
-
     }
 
     private void insertOne(Database database, JSONObject object) {
@@ -84,10 +80,32 @@ public class DatabaseHandler {
     }
 
     public void createQuestion(JSONObject question){
+        question.put("questionID", getNextQuestionId());
         insertOne(Database.Questions,question);
     }
+
+    public int getNextQuestionId(){
+        List<JSONObject> objects = getAllQuestions();
+
+        int maxId = 0;
+        for(JSONObject obj:objects){
+            if(obj.getInt("questionID") > maxId){
+                maxId = obj.getInt("questionID");
+            }
+        }
+        return maxId +1;
+
+    }
+
     public List<JSONObject> getAllQuestions(){
         return getAll(Database.Questions);
     }
 
+    public void putAnswer(int id, String answer, String userObjectID) {
+        JSONObject packet = new JSONObject();
+        packet.put("questionID",id);
+        packet.put("answer",answer);
+        packet.put("userId",userObjectID);
+        insertOne(Database.Answers,packet);
+    }
 }

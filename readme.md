@@ -75,6 +75,7 @@ Vor der Erstellung dieses Dokuments, habe ich an einem Sequenzdiagramm gearbeite
 
 ## Sonstiges
 
+[CAS](https://apereo.github.io/cas/5.2.x/)
 
 ## Doku
 
