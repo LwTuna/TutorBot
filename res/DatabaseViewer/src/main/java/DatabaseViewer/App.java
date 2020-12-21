@@ -61,8 +61,7 @@ public class App {
         frame.setVisible(true);
 
 
-        for (ItemListener il:collectionSelction.getItemListeners()) {
-        }
+
     }
 
     public static void main(String[] args) {

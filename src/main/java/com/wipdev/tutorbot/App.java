@@ -31,7 +31,7 @@ public class App {
 
     private QuestionManager questionManager ;
 
-    private ReviewHandler reviewHandler = new ReviewHandler();
+    private ReviewHandler reviewHandler ;
 
     public App() {
         javalin = Javalin.create(config -> {
@@ -43,7 +43,9 @@ public class App {
         javalin.post("request", ctx -> {
             ctx.result(handleRequest(URLDecoder.decode(ctx.queryString(), StandardCharsets.UTF_8.toString()), ctx.req.getSession()));
         });
+
         databaseHandler.connect();
+        reviewHandler = new ReviewHandler(databaseHandler);
         questionManager = new QuestionManager(databaseHandler,sessionManager);
 
         initializeHandlers();

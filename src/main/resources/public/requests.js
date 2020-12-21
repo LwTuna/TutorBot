@@ -51,11 +51,12 @@ function onReady() {
 }
 
 $(document).ready(function () {
-
-
     onReady();
 });
 
+function setReviewPage() {
+    $(".content").load("review.html");
+}
 
 
 

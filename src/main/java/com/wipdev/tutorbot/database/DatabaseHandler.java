@@ -80,7 +80,7 @@ public class DatabaseHandler {
         insertOne(Database.Questions,question);
     }
 
-    public int getNextQuestionId(){
+    private int getNextQuestionId(){
         List<JSONObject> objects = getAllQuestions();
 
         int maxId = 0;
@@ -103,6 +103,18 @@ public class DatabaseHandler {
         packet.put("answer",answer);
         packet.put("userId",userObjectID);
         insertOne(Database.Answers,packet);
+    }
+
+    public List<JSONObject> getAnswersToQuestion(int questionId){
+        List<JSONObject> all = getAll(Database.Answers);
+        List<JSONObject> selected = new ArrayList<>();
+        for(JSONObject obj : all){
+            if(obj.getInt("questionID") == questionId){
+                selected.add(obj);
+            }
+        }
+        return selected;
+
     }
 
 }
