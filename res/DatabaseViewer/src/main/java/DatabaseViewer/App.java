@@ -10,6 +10,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Set;
 
 public class App {
@@ -20,6 +22,13 @@ public class App {
         nitrite = Nitrite.builder().compressed().filePath("./../data.db").openOrCreate("admin","2212");
 
         JFrame frame = new JFrame();
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                nitrite.close();
+                super.windowClosing(e);
+            }
+        });
         frame.setResizable(false);
         frame.setSize(1280,720);
         frame.setLayout(null);
