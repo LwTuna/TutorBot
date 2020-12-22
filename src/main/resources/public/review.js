@@ -5,8 +5,8 @@ function setAnswersToReview(response){
         const row = document.getElementById("answerContainer").children.item(1);
         for(let i = 0;i<response.answers.length;i++){
             row.innerHTML +=
-                "<div class=\"col border mx-1 py-4 bg-light\" data-answerId = \""+response.answers[i]._id+"\">\n" +
-                +response.answers[i].answer +
+                "<div class=\"col border mx-1 py-4 bg-light\" data-answerId = \""+response.answers[i].id+"\">\n" +
+                +response.answers[i].answer.replace(/(?:\r\n|\r|\n)/g, '<br>') +
                 "<br><button class=\"btn btn-primary\" onclick=\"bestAnswer(this)\">Beste Lösung</button>"+
                 "            </div>";
         }
@@ -27,6 +27,7 @@ function bestAnswer(button) {
 }
 
 function submitBestAnswerCallback(response) {
+    console.log(response);
     alert("Lösung erfolgreich eingetragen!");
     onReady();
 }

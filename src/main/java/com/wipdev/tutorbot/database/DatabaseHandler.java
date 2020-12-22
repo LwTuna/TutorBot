@@ -110,6 +110,7 @@ public class DatabaseHandler {
         List<JSONObject> selected = new ArrayList<>();
         for(JSONObject obj : all){
             if(obj.getInt("questionID") == questionId){
+                obj.put("id",String.valueOf(obj.getLong("_id")));
                 selected.add(obj);
             }
         }
