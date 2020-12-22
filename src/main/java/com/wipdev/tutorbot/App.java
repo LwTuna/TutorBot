@@ -45,7 +45,7 @@ public class App {
         });
 
         databaseHandler.connect();
-        reviewHandler = new ReviewHandler(databaseHandler);
+        reviewHandler = new ReviewHandler(databaseHandler,sessionManager);
         questionManager = new QuestionManager(databaseHandler,sessionManager);
 
         initializeHandlers();
@@ -111,6 +111,8 @@ public class App {
             }
             return response;
         }));
+
+        handlers.put("submitBestAnswer",reviewHandler::handleSubmitBestAnswer);
     }
 
 

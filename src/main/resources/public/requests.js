@@ -35,13 +35,16 @@ function testCallback(response) {
 
 
 
-
 function onIsLoginResponse(response) {
     if(!response.loggedIn){
         $(".content").load("login.html");
     }else{
         $(".content").load("homeContent.html");
     }
+}
+
+function loadQuiz() {
+    $(".content").load("QuizContent.html");
 }
 
 function onReady() {
@@ -55,7 +58,16 @@ $(document).ready(function () {
 });
 
 function setReviewPage() {
-    $(".content").load("review.html");
+    let request = {};
+    request.key = "isLoggedIn";
+    sendRequest(request,function (response) {
+        if(!response.loggedIn){
+            alert("Dafür musst du eingeloggt sein!")
+            $(".content").load("login.html");
+        }else{
+            $(".content").load("review.html");
+        }
+    });
 }
 
 

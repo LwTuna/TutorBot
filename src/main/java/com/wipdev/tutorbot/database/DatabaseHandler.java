@@ -117,4 +117,8 @@ public class DatabaseHandler {
 
     }
 
+    public void submitReviewedAnswer(JSONObject entry){
+        insertOne(Database.ReviewedAnswers,entry);
+    }
+
 }
