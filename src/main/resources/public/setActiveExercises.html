@@ -1,0 +1,44 @@
+
+<style type="text/css">
+    body.dragging, body.dragging * {
+        cursor: move !important;
+    }
+
+    .dragged {
+        position: absolute;
+        opacity: 0.5;
+        z-index: 2000;
+    }
+    .exercises > li{
+        display: block;
+        margin: 5px;
+        padding: 5px;
+        border: 1px solid #CCC;
+        background: #6c757d;
+        color : #fbfffb;
+    }
+
+</style>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col col-6">
+                <h4>Aktive Aufgaben</h4>
+                <ol class="exercises border border-dark py-2" id="activeExercises">
+                </ol>
+            </div>
+            <div class="col col-6" >
+                <h4>Alle Aufgaben</h4>
+                <ol class="exercises border border-dark py-2" id="allExercises">
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col mx-auto">
+                <button class="btn btn-secondary" onclick="sumbitActiveExercises()">Aktive Aufgaben ändern!</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript" src="setActiveExercises.js"></script>

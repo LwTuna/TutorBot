@@ -1,20 +1,27 @@
-function login() {
-    let request = {};
-    request.key = "login";
-    request.user = document.getElementById("usr").value;
-    request.password = hashPwd(document.getElementById("pwd").value);
-    sendRequest(request,onLoginResponse);
+function signIn(event){
+
+    const ignInName= document.getElementById("signInName").value;
+    const signInPass= document.getElementById("signInPass").value
+    if(isEmpty(ignInName) || isEmpty(signInPass)) return;
+    let req = {};
+    req.signInName = ignInName;
+    req.signInPass = hashPwd(signInPass);
+
+    sendRequest("post","login",req,function(status,res) {
+        const response = JSON.parse(res);
+        if(response.success === "true"){
+            $(".content").load("home.html");
+        }else{
+
+            alert(response.message);
+            document.getElementById("signInForm").reset();
+        }
+    });
 }
 
-function onLoginResponse(response) {
-    if(response.success){
-        $(".content").load("homeContent.html");
-    }else{
-        alert("Login failed."+response.status);
-    }
-
-
-}
+$(document).ready(function () {
+    document.getElementById("loginBtn").addEventListener("click", signIn);
+});
 
 function hashPwd(pwd) {
     let hashObj = new jsSHA("SHA-512", "TEXT", {numRounds: 1});
@@ -22,14 +29,6 @@ function hashPwd(pwd) {
     return hashObj.getHash("HEX");
 }
 
-function register() {
-    let request = {};
-    request.key = "register";
-    request.user = document.getElementById("usr").value;
-    request.password = hashPwd(document.getElementById("pwd").value);
-    sendRequest(request,onRegisterResponse);
-}
-
-function onRegisterResponse(response) {
-    alert(response.message);
+function isEmpty(str) {
+    return (!str || 0 === str.length);
 }

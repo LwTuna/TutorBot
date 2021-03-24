@@ -1,0 +1,25 @@
+
+<script type="text/javascript" src="createNewEx.js"></script>
+<style type="text/css" media="screen">
+    .app_editor {
+        position: relative;
+        height: 500px;
+    }
+</style>
+
+<body>
+<div class="container">
+    <label>Aufgabentext:</label>
+    <textarea class="form-control" id="textHead" rows="3"></textarea>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div id="editor_wrapper" class="app_editor_wrapper">
+                <div id="editor" class="app_editor"></div>
+            </div>
+        </div>
+        <div class="panel-footer justify-content-end">
+            <button class="btn-secondary" id="createExBtn" data-exid="-1" onclick="createEx(this)">Erstellen/Bearbeiten</button>
+        </div>
+    </div>
+</div>
+</body>

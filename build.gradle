@@ -21,28 +21,25 @@ repositories {
 }
 
 dependencies {
-
+    //Javalin
     compile 'io.javalin:javalin:3.11.0'
-
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:28.1-jre'
-
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
-
     compile 'org.slf4j:slf4j-simple:1.7.25'
-
     // https://mvnrepository.com/artifact/org.json/json
     compile group: 'org.json', name: 'json', version: '20200518'
-
-
-    // https://mvnrepository.com/artifact/org.mongodb/mongodb-driver
-    compile 'org.dizitart:nitrite:1.0'
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.23'
+    // https://mvnrepository.com/artifact/javax.mail/javax.mail-api
+    implementation group: 'javax.mail', name: 'javax.mail-api', version: '1.6.2'
+    compile group: 'com.sun.mail', name: 'javax.mail', version: '1.6.0'
 
 
 }
 
 application {
     // Define the main class for the application.
-    mainClassName = 'com.wipdev.tutorbot.App'
+    mainClassName = 'de.wip.tutorbot.App'
 }

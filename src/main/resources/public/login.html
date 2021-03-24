@@ -1,14 +1,20 @@
+
+
 <body>
-<script type="text/javascript" src="login.js"></script>
-<div class="row">
-    <div class="col-sm-4">
+<script src="login.js"></script>
+<section id="signIn" class="container mb-4">
+    <h2>Anmeldung</h2>
+    <form id="signInForm" action="/">
         <div class="form-group">
-            <label >Username</label><input type="text" id="usr" class="form-control">
-            <label >Password</label><input type="password" id="pwd" class="form-control">
-            <button class="btn btn-primary" style="margin-top: 30px" onclick="login()">Log In!</button>    <button class="btn btn-primary" style="margin-top: 30px" onclick="register()">Registrieren!</button>
+            <label for="signInName">Nutzername:</label>
+            <input id="signInName" name="signInName" type="text" class="form-control" required>
         </div>
-    </div>
-
-</div>
-
+        <div class="form-group">
+            <label for="signInPass">Passwort:</label>
+            <input id="signInPass" name="signInPass" type="password" class="form-control" required>
+        </div>
+        <input type="button" id="loginBtn" value="Anmelden" class="btn btn-primary">
+    </form>
+</section>
+</form>
 </body>
